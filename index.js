@@ -34,8 +34,8 @@ async function run() {
       res.send(result);
     })
     app.get('/cart',async(req,res) => {
-      const curson = cartCollection.find();
-      const result = await curson.toArray();
+      const cursor = cartCollection.find();
+      const result = await cursor.toArray();
       res.send(result);
     })
 
@@ -45,11 +45,18 @@ async function run() {
       res.send(result);
     })
     app.get('/product',async(req,res) => {
-      const curson = productCollection.find();
-      const result = await curson.toArray();
+      const cursor = productCollection.find();
+      const result = await cursor.toArray();
       res.send(result);
     })
 
+// brand name
+    app.get('/brandproduct/:brand', async(req,res)=>{
+      const brand= req.params.brand;
+      const query = {brand: brand};
+      const result = await productCollection.find(query).toArray();
+      res.send(result);
+    })
     app.get('/product/:id', async(req,res)=>{
       const id= req.params.id;
       const query = {_id: new ObjectId(id)};
